@@ -11,12 +11,12 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '18.x'
+          node-version: '20.x'
 
       - name: Install dependencies
         run: pnpm install
@@ -24,7 +24,8 @@ jobs:
       - name: Build project
         run: pnpm build
 
-      - name: Deploy to server
-        run: |
-          # 这里可以添加部署到服务器的命令，例如使用 rsync 或 scp
-          # 或者你可以将 dist 文件夹上传到某个云存储服务
+      - name: Upload dist as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist
